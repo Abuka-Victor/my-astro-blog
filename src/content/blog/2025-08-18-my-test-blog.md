@@ -2,14 +2,14 @@
 author: Victor Abuka
 pubDatetime: 2025-08-18
 modDatetime: 2025-08-18
-title: My Test Blog
-ogImage: Testing the layouts
-slug: my-test-blog
+title: Testing this blog..
+slug: my-first-blog-post
 featured: false
 draft: false
 tags:
-  - lifestyle
-  - tutorial
-description: This is a test blog to see if the actions will pick up
+  - random
+description: This is the first article on my new blog
 ---
-We have a lot of things to test fortunately for all of us
+I spent a whole day setting up this blog. On this journey I have learned a lot of Astro (of course !), Preact, a little Svelte and Github Actions. It's been a very interesting day today.  
+  
+But I finally have a blog and I'm using this post to tell the internet that I finally did this.
