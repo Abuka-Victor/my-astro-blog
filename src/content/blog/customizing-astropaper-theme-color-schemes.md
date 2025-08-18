@@ -1,17 +1,14 @@
 ---
 author: Sat Naing
-pubDatetime: 2022-09-25T15:20:35Z
 title: Customizing AstroPaper theme color schemes
 featured: false
-draft: false
+draft: true
 tags:
   - color-schemes
   - docs
-description:
-  How you can enable/disable light & dark mode; and customize color schemes
-  of AstroPaper theme.
+description: How you can enable/disable light & dark mode; and customize color
+  schemes of AstroPaper theme.
 ---
-
 This post will explain how you can enable/disable light & dark mode for the website. Moreover, you'll learn how you can customize color schemes of the entire website.
 
 ## Table of contents
@@ -53,17 +50,15 @@ const currentTheme = localStorage.getItem("theme");
 
 The **primaryColorScheme** variable can hold two values\_ `"light"`, `"dark"`. You can leave the empty string (default) if you don't want to specify the primary color scheme.
 
-- `""` - system's prefers-color-scheme. (default)
-- `"light"` - use light mode as primary color scheme.
-- `"dark"` - use dark mode as primary color scheme.
+*   `""` - system's prefers-color-scheme. (default)
+*   `"light"` - use light mode as primary color scheme.
+*   `"dark"` - use dark mode as primary color scheme.
 
-<details><summary>Why 'primaryColorScheme' is not inside config.ts?</summary>
+Why 'primaryColorScheme' is not inside config.ts?
 
 > To avoid color flickering on page reload, we have to place the toggle-switch JavaScript codes as early as possible when the page loads. It solves the problem of flickering, but as a trade-off, we cannot use ESM imports anymore.
 
 [Click here](https://docs.astro.build/en/reference/directives-reference/#isinline) to know more about Astro's `is:inline` script.
-
-</details>
 
 ## Customize color schemes
 
@@ -103,14 +98,14 @@ Colors are declared in CSS custom property (CSS Variable) notation. Color proper
 
 Here is the detail explanation of color properties.
 
-| Color Property       | Definition & Usage                                         |
-| -------------------- | ---------------------------------------------------------- |
-| `--color-fill`       | Primary color of the website. Usually the main background. |
-| `--color-text-base`  | Secondary color of the website. Usually the text color.    |
-| `--color-accent`     | Accent color of the website. Link color, hover color etc.  |
-| `--color-card`       | Card, scrollbar and code background color (like `this`).   |
-| `--color-card-muted` | Card and scrollbar background color for hover state etc.   |
-| `--color-border`     | Border color. Especially used in horizontal row (hr)       |
+| Color Property | Definition & Usage |
+| --- | --- |
+| `--color-fill` | Primary color of the website. Usually the main background. |
+| `--color-text-base` | Secondary color of the website. Usually the text color. |
+| `--color-accent` | Accent color of the website. Link color, hover color etc. |
+| `--color-card` | Card, scrollbar and code background color (like `this`). |
+| `--color-card-muted` | Card and scrollbar background color for hover state etc. |
+| `--color-border` | Border color. Especially used in horizontal row (hr) |
 
 Here is an example of changing the light color scheme.
 
