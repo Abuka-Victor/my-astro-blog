@@ -1,17 +1,13 @@
 ---
 author: Simon Smale
-pubDatetime: 2024-01-03T20:40:08Z
-modDatetime: 2024-01-08T18:59:05Z
 title: How to use Git Hooks to set Created and Modified Dates
 featured: false
-draft: false
+draft: true
 tags:
   - docs
   - FAQ
-canonicalURL: https://smale.codes/posts/setting-dates-via-git-hooks/
 description: How to use Git Hooks to set your Created and Modified Dates on AstroPaper
 ---
-
 In this post I will explain how to use the pre-commit Git hook to automate the input of the created (`pubDatetime`) and modified (`modDatetime`) in the AstroPaper blog theme frontmatter
 
 ## Table of contents
@@ -32,13 +28,13 @@ Navigating to the `hooks/pre-commit` file, we are going to add one or both of th
 
 ### Updating the modified date when a file is edited
 
----
+* * *
 
 UPDATE:
 
 This section has been updated with a new version of the hook that is smarter. It will now not increment the `modDatetime` until the post is published. On the first publish, set the draft status to `first` and watch the magic happen.
 
----
+* * *
 
 ```shell
 # Modified files, update the modDatetime
@@ -73,13 +69,13 @@ The letter at the start denotes what action has been taken, in the above example
 
 We pipe that output into the grep command where we are looking at each line to find that have been modified. The line needs to start with `M` (`^(M)`), have any number of characters after that (`.*`) and end with the `.md` file extension (`.(md)$`).This is going to filter out the lines that are not modified markdown files `egrep -i "^(M).*\.(md)$"`.
 
----
+* * *
 
 #### Improvement - More Explicit
 
 This could be added to only look for files that we markdown files in the `blog` directory, as these are the only ones that will have the right frontmatter
 
----
+* * *
 
 The regex will capture the two parts, the letter and the file path. We are going to pipe this list into a while loop to iterate over the matching lines and assign the letter to `a` and the path to `b`. We are going to ignore `a` for now.
 
@@ -97,13 +93,13 @@ The next part with the sed command is a bit magical to me as I don't often use i
 
 This replacement is in the context of the whole file so we put that into a temporary file (`> tmp`), then we move (`mv`) the new file into the location of the old file, overwriting it. This is then added to git ready to be committed as if we made the change ourselves.
 
----
+* * *
 
 #### NOTE
 
 For the `sed` to work the frontmatter needs to already have the `modDatetime` key in the frontmatter. There are some other changes you will need to make for the app to build with a blank date, see [further down](#empty-moddatetime-changes)
 
----
+* * *
 
 ### Adding the Date for new files
 
@@ -118,21 +114,17 @@ git diff --cached --name-status | egrep -i "^(A).*\.(md)$" | while read a b; do
 done
 ```
 
----
+* * *
 
 #### Improvement - Only Loop Once
 
 We could use the `a` variable to switch inside the loop and either update the `modDatetime` or add the `pubDatetime` in one loop.
 
----
+* * *
 
 ## Populating the frontmatter
 
 If your IDE supports snippets then there is the option to create a custom snippet to populate the frontmatter.[In AstroPaper v4 will come with one for VSCode by default.](https://github.com/satnaing/astro-paper/pull/206)
-
-<video autoplay muted="muted" controls plays-inline="true" class="border border-skin-line">
-  <source src="https://github.com/satnaing/astro-paper/assets/17761689/e13babbc-2d78-405d-8758-ca31915e41b0" type="video/mp4">
-</video>
 
 ## Empty `modDatetime` changes
 
@@ -168,7 +160,7 @@ const blog = defineCollection({
 
 To stop the IDE complaining in the blog engine files I have also done the following:
 
-1. added `| null` to line 15 in `src/layouts/Layout.astro` so that it looks like
+1.  added `| null` to line 15 in `src/layouts/Layout.astro` so that it looks like
 
 ```typescript
 export interface Props {
@@ -182,9 +174,7 @@ export interface Props {
 }
 ```
 
-<!-- This needs to be 2 as it doesn't pick it up with the code block -->
-
-2. added `| null` to line 5 in `src/components/Datetime.tsx` so that it looks like
+2.  added `| null` to line 5 in `src/components/Datetime.tsx` so that it looks like
 
 ```typescript
 interface DatetimesProps {
