@@ -1,15 +1,12 @@
 ---
 author: Simon Smale
-pubDatetime: 2024-01-08T18:16:00.000Z
-modDatetime:
 title: How to add a new Social Icon to AstroPaper
 featured: false
-draft: false
+draft: true
 tags:
   - FAQ
 description: How to add a new social icon to AstroPaper
 ---
-
 Hot new platform? Niche corner of the internet? Or one specific to your area? This post will guide you through how to add a new social icon to the theme.
 
 ## Table of contents
@@ -34,7 +31,7 @@ For this guide we are going to use the StackOverflow icon as our example.
 
 > In this case, we are going to use the `StackOverflow` as an example.
 
-Searching on Tabler for 'StackOverflow' we get a single icon <https://tabler.io/icons/icon/brand-stackoverflow>, we are going to need the svg code, so save it for later.
+Searching on Tabler for 'StackOverflow' we get a single icon [https://tabler.io/icons/icon/brand-stackoverflow](https://tabler.io/icons/icon/brand-stackoverflow), we are going to need the svg code, so save it for later.
 
 ```html
 <svg
@@ -62,12 +59,12 @@ Searching on Tabler for 'StackOverflow' we get a single icon <https://tabler.io/
 
 We need to do some tidy up on what the theme provides us.
 
-1. remove all classes other than `icon-tabler`
-2. remove width & height
-3. remove the viewBox
-4. remove the stroke-width
-5. remove the stroke
-6. remove the fill
+1.  remove all classes other than `icon-tabler`
+2.  remove width & height
+3.  remove the viewBox
+4.  remove the stroke-width
+5.  remove the stroke
+6.  remove the fill
 
 This should leave you with the following
 
