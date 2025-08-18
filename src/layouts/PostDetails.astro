@@ -20,6 +20,7 @@ const {
   author,
   description,
   ogImage,
+  readingTime,
   canonicalURL,
   pubDatetime,
   modDatetime,
@@ -67,19 +68,26 @@ const layoutProps = {
   </div>
   <main id="main-content">
     <h1 transition:name={slugifyStr(title)} class="post-title">{title}</h1>
-    <Datetime
-      pubDatetime={pubDatetime}
-      modDatetime={modDatetime}
-      size="lg"
-      className="my-2"
-    />
-    <article id="article" role="article" class="prose mx-auto mt-8 max-w-3xl">
-      <Content />
-    </article>
+    <div
+      class="flex flex-col items-start justify-between gap-2 sm:flex-row sm:items-center"
+    >
+      <Datetime
+        pubDatetime={pubDatetime}
+        modDatetime={modDatetime}
+        size="lg"
+        className="my-2"
+      />
 
+      <p class="text-sm text-skin-base">
+        {readingTime ? ` - ${readingTime}` : ""}
+      </p>
+    </div>
     <ul class="my-8">
       {tags.map(tag => <Tag tag={slugifyStr(tag)} />)}
     </ul>
+    <article id="article" role="article" class="prose mx-auto mt-8 max-w-3xl">
+      <Content />
+    </article>
 
     <div
       class="flex flex-col-reverse items-center justify-between gap-6 sm:flex-row-reverse sm:items-end sm:gap-4"
