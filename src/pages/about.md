@@ -10,6 +10,12 @@ I started coding in 2014 but I was off and on till I got my first job as a backe
 
 My professional development skills range from front and back-end development to mobile development and operations.
 
+Currently I’m a software engineer at Xpathedge, where I’m leading a team building the future of education management.
+
+I write simple articles about technical concepts and occasionally do sanity checklists and deep dives.
+
+I have some experience teaching, professionally, Physics, Mathematics and more recently Software Engineering. I also sometimes speak at conferences and events.
+
 I love writing about the things I am learning and usually I am soaked in the beauty of the world but right now I have my eyes on these majorly:
 
 *   Low level and Graphics Programming
