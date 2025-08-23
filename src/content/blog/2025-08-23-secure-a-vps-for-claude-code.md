@@ -131,3 +131,64 @@ sudo systemctl enable fail2ban
 ```
 
 Fail2ban is now active on your VPS.
+
+## Step 6 - Setup a firewall
+
+Your VPS is exposed to the internet (well and to itself too) through ports. Now you don't want to have too many of these holes open because somebody/bot will potentially exploit one of them soon enough. Now it might be a bit complicated to track this but the easy way to do this is to setup a firewall. There are a number of them but I'm basing this on UFW.
+
+You probably have it installed already if you're on an ubuntu distro but it doesn't hurt to run the install with
+
+```bash
+sudo apt install ufw
+```
+
+If you have it installed it'll say so, if not it'll install it.
+
+Now you want the bare minimum number of ports exposed to the internet. My current list of bare minimum ports has just
+
+*   ssh - port 22
+    
+*   http/https - port 80/ port 443 resp.
+    
+
+So first to setup our rules we want to deny all incoming connections and allow all outgoing connection with
+
+```
+sudo ufw default deny incoming
+```
+
+```
+sudo ufw default allow outgoing
+```
+
+Then allow the ssh and http/https ports with
+
+```
+sudo ufw allow 22
+```
+
+```
+sudo ufw allow 80
+```
+
+```sudo
+sudo ufw allow 443
+```
+
+For ssh, http and https respectively.
+
+Finally we need to enable our firewall that we've setup. But first we check the rules we've put in place just to confirm
+
+```sudo
+sudo ufw status
+```
+
+It should show the ports 22, 80 and 443 as allowed. Then we're good to go to enable the firewall with
+
+```
+sudo ufw enable
+```
+
+## Congratulations
+
+You have just completed the bare minimum of server security. If you made it this far thank you very much for reading.
