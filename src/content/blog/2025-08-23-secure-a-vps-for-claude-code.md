@@ -56,4 +56,78 @@ The update part pulls the latest versions of all packages and services that your
 
 ## Step 3 - Create a new user
 
-Most attacks would try to login to your vps as root, admin or something similar so lets fix that. The goal here is to disable root login so those attacks are completely useless.
+Most attacks would try to login to your vps as root, admin or something similar so lets fix that. The goal here is to disable root login so those attacks are completely useless. You need to use a very nonsense name and not something that's related to you in anyway. Some attackers might be people that know you if they've done a little social engineering so don't use anything related to you. For instance, I use `Ojuelegba` as my username. Lol, I don't, or do I, who knows?
+
+To add a user you use the `adduser` command like so
+
+```
+adduser <user_name>
+```
+
+It will ask you for password after this step and again the password should be long and stupid. Ideally above 24 characters. Remember the most secure thing online is stuff that is not online. Keep a paper under the bed of your cat with the passwords so that whoever hacks you must be a hacker and a burglar at the same time. Whoever can do those very well is free to steal from me. I won't even be mad.
+
+So next we need to add this new user to the sudo group so the user can get root permissions and still do root stuff even though you wouldn't be signing in as root (remember this is the goal). To do this run the following:
+
+```
+usermod -aG sudo <user_name>
+```
+
+Now you can test by switching the user with `su <user_name>` or even logging out and back in with the new credentials. To get into root mode you can do
+
+```
+sudo -s
+```
+
+You're going to need the password of the <user\_name> you just created of course if that's what you signed in as. You can use the same method to provision permissions for your dev and whoever else needs access to your VPS.
+
+## Step 4 - Disable Root Login
+
+This is pretty straightforward we only need to edit a field in a config file. That's `/etc/ssh/sshd_config` you can use vi to open it like so:
+
+```
+vi /etc/ssh/sshd_config
+```
+
+At the bottom of the file you should see `PermitRootLogin yes` set this to no. use `i` to enable insert and when you're done `esc` then `:x` with the colons included. This saves your work in the file and closes it.
+
+You're almost done we have two more steps to go.
+
+## Step 5 - Install and activate Fail2Ban
+
+This helps you to lock out people trying to gain unauthorised access for some time (could be 2 years or 2 seconds - up to you). It puts their ip in some kind of jail and further attempts are just ignored.
+
+Install it with
+
+```
+sudo apt install fail2ban -y
+```
+
+After that's done you'd need config file to get it running but no worries the installation comes with a sample config file that we can tweak and use. Just copy the sample to the main file like so
+
+```
+sudo cp /etc/fail2ban/jail.conf /etc/fail2ban/jail.local
+```
+
+Then open the file up with
+
+```
+vi /etc/fail2ban/jail.local
+```
+
+It's a pretty long file and it has a lot of comments that can let you know exactly what setting you're looking at but we're not doing too much here. What you're looking for is two things - bantime and findtime.
+
+The bantime is pretty self explanatory, this sets how long that ip is banned. The findtime on the other hand is the retry window. So basically if somebody tries your password a certain number of times consecutively within a certain time window then it bans the ip. This time window is the findtime. The certain number of times is the maxretry value, you can also set that if you want.
+
+So set these values to what seems like a reasonable punishment to you. Note that the findtime needs to be a large enough window like 10h or so. If it's really small like 3s then I can just wait 3s after every try and I would never be banned. Also be careful not to test this out carelessly cuz you might be banned from your own server for say like 2 years.
+
+So now that we're done with the config lets start the fail2ban engine with
+
+```
+sudo systemctl start fail2ban
+```
+
+```
+sudo systemctl enable fail2ban
+```
+
+Fail2ban is now active on your VPS.
