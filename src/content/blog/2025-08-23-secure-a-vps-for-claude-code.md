@@ -55,3 +55,5 @@ apt update && apt upgrade -y
 The update part pulls the latest versions of all packages and services that your VPS uses and the upgrade part goes ahead to install those things. The -y flag just says yes to any question that might come up during the update and upgrade.
 
 ## Step 3 - Create a new user
+
+Most attacks would try to login to your vps as root, admin or something similar so lets fix that. The goal here is to disable root login so those attacks are completely useless.
