@@ -8,7 +8,9 @@ slug: ultimate-vps-security-for-dummies
 featured: true
 draft: false
 tags:
-  - guides
+  - Guides
+  - Cybersecurity
+  - Devops
 description: So you finally got a VPS ready for Claude Code. Here are some key
   steps to follow to avoid spilling tea.
 ---
