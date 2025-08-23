@@ -6,6 +6,8 @@ title: Secure a VPS for Claude Code
 slug: secure-a-vps-for-claude-code
 featured: false
 draft: true
+description: So you finally got a VPS ready for Claude Code. Here are some steps
+  to follow to avoid spilling tea.
 ---
 ## Introduction
 
