@@ -3,7 +3,6 @@ author: Victor Abuka
 pubDatetime: 2025-08-23
 modDatetime: 2025-08-23
 title: Secure a VPS for Claude Code
-ogImage: Secure a VPS for Claude Code
 slug: secure-a-vps-for-claude-code
 featured: true
 draft: false
