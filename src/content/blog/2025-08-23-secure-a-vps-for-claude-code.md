@@ -1,7 +1,7 @@
 ---
 author: Victor Abuka
 pubDatetime: 2025-08-23
-modDatetime: 2025-08-23
+modDatetime: 2025-08-24
 title: Secure a VPS for Claude Code
 slug: secure-a-vps-for-claude-code
 featured: true
@@ -96,6 +96,12 @@ vi /etc/ssh/sshd_config
 At the bottom of the file you should see `PermitRootLogin yes` set this to no. use `i` to enable insert and when you're done `esc` then `:x` with the colons included. This saves your work in the file and closes it.
 
 You're almost done we have two more steps to go.
+
+Edit: Future me here. I got questions regarding this step. Well, it turns out if you logout and try to login back with root it'll still work. That's because we didn't restart the ssh service so you can quickly do that using the following:
+
+```
+sudo systemctl restart ssh
+```
 
 ## Step 5 - Install and activate Fail2Ban
 
