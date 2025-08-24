@@ -4,7 +4,7 @@ pubDatetime: 2025-08-23
 modDatetime: 2025-08-23
 title: Secure a VPS for Claude Code
 ogImage: Secure a VPS for Claude Code
-slug: Ultimate-VPS-Security-For-Dummies
+slug: secure-a-vps-for-claude-code
 featured: true
 draft: false
 tags:
@@ -12,7 +12,8 @@ tags:
   - Cybersecurity
   - Devops
 description: So you finally got a VPS ready for Claude Code. Here are some key
-  steps to follow to avoid spilling tea.
+  steps to follow to avoid spilling tea. This is the ultimate VPS security setup
+  for dummies.
 ---
 ## Introduction
 
