@@ -8,6 +8,7 @@ featured: false
 draft: true
 tags:
   - cybersecurity
+  - mind-maps
 description: This is an article to wrap my head around how VPNs work.
 ---
 A while ago a classmate told me he had built a VPN in Java for his final project and I found it very interesting. Too interesting in fact to leave the idea alone.
