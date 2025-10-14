@@ -34,7 +34,7 @@ Now on to the second question: if I wanted to build my own VPN, how would I do i
 
 A VPN has three core components and one extra component that wraps everything together:
 
-1\. **A Virtual Network Adapter (the tunnel)**
+1\. **A Virtual Network Adapter (the** tunnel**)**
 
 2\. **Transport**
 
@@ -64,7 +64,7 @@ Okay, the VPN client is able to send encrypted packets over to the server, so no
 
 The first thing we want to do is to setup our transport in order to receive the packets. If you used UDP on the client then you'd need to setup a UDP server on the VPN server so that the UDP client on the VPN client can connect to it and send those packets in the first place. You might decide to use TCP and the flow would be the exact same. There has to be a way for the packets to reach the server because this is your entry point.
 
-At this point you might want to setup some of those headaches that we talked about previously so that not just anybody can connect to your server. Establishing a proper peer system would do some good here so only verified peers can send requests in the first place. Every other type of request should be ignored. Your VPN server itself should be a secure machine.
+At this point you might want to setup some of those headaches that we talked about previously so that not just anybody can connect to your server. Establishing a proper peer system would do some good here so only verified peers can send requests in the first place. Every other type of request should be ignored. Your VPN server itself should be a secure machine. [Learn how to set that up here.](https://www.victorabuka.com/posts/secure-a-vps-for-claude-code/)
 
 After receiving the packets securely, the next step would be to decrypt them and forward them to the internet. You already know what we're about to do here. If you guessed that we would create a virtual network adapter (TUN/TAP) on the VPN server then you are 100% correct. We do this because the same way we can read from it on the client we can write to it so that the OS picks it up and sends it to its networking stack and makes the request for us.
 
@@ -74,4 +74,4 @@ Congratulations you now have a VPN, it seems like a long journey but it happens 
 
 This is my current mind map of how a VPN works on a technical level. I am open to comments, contributions, or questions.
 
-This article was originally posted on CoderLegion - [https://coderlegion.com/6433/how-a-vpn-works-a-technical-mind-map](https://coderlegion.com/6433/how-a-vpn-works-a-technical-mind-map)
+This article was originally posted on [CoderLegion](https://coderlegion.com/6433/how-a-vpn-works-a-technical-mind-map)
