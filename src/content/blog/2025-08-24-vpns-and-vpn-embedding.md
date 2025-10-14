@@ -4,12 +4,13 @@ pubDatetime: 2025-10-14
 modDatetime: 2025-10-14
 title: "How a VPN Works: A Technical Mind Map"
 slug: how-a-vpn-works-technical-mind-map
-featured: false
-draft: true
+featured: true
+draft: false
 tags:
   - cybersecurity
   - mind-maps
-description: This is an article to wrap my head around how VPNs work.
+description: Learn exactly how a VPN works. The technical architecture and the
+  core technologies required to build your own VPN.
 ---
 A while ago a classmate told me he had built a VPN in Java for his final project and I found it very interesting. Too interesting in fact to leave the idea alone.
 
