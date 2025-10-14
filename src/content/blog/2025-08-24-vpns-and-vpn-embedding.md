@@ -1,7 +1,7 @@
 ---
 author: Victor Abuka
-pubDatetime: 2025-08-25
-modDatetime: 2025-08-25
+pubDatetime: 2025-10-14
+modDatetime: 2025-10-14
 title: "How a VPN Works: A Technical Mind Map"
 slug: how-a-vpn-works-technical-mind-map
 featured: false
@@ -76,3 +76,5 @@ When the OS gets the response from the internet, it writes the packets back to t
 Congratulations you now have a VPN, it seems like a long journey but it happens pretty fast (when implemented without unnecessary latency from bad code). Now since the real device that makes the request to the internet is the VPN server this whole concept has the effect of masking a user's real IP address. If you are thinking of implementing a VPN you should really checkout the WireGuard protocol. VPN protocols are opinionated ways of doing this whole thing, they give you a recipe to follow for the primary steps and even the headaches (sessions/auth/handshakes, etc).
 
 This is my current mind map of how a VPN works on a technical level. I am open to comments, contributions, or questions.
+
+This article was originally posted on \[CoderLegion\]([https://coderlegion.com/6433/how-a-vpn-works-a-technical-mind-map](https://coderlegion.com/6433/how-a-vpn-works-a-technical-mind-map))
