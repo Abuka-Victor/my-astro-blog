@@ -31,7 +31,7 @@ About
 <h2 id="the-architectural-layer-building-your-own-vpn">The Architectural Layer: Building Your Own VPN</h2>
 <p>Now on to the second question: if I wanted to build my own VPN, how would I do it? You might think it’s difficult on the surface, and you would be right to think that, but once you get the core things figured out, the components stack nicely on top of each other to give you the desired result. At this point, you already know you would need two things: the VPN server and the VPN client. These two things are software you can write in any programming language of your choice.</p>
 <p>A VPN has three core components and one extra component that wraps everything together:</p>
-<p>1. <strong>A Virtual Network Adapter (the</strong> tunnel**)**</p>
+<p>1. <strong>A Virtual Network Adapter (the tunnel)</strong></p>
 <p>2. <strong>Transport</strong></p>
 <p>3. <strong>Encryption</strong></p>
 <p>The last thing that wraps everything together are just the headaches (essential security and management mechanisms) that keep the whole thing super secure, like auth handshakes, pre-shared keys, keep-alive requests, session management etc. These things are peripherals but they help run a tight ship in terms of a VPN service. We would start building from the perspective of the VPN client. So let’s break it down.</p>
