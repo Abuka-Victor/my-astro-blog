@@ -34,7 +34,7 @@ Now on to the second question: if I wanted to build my own VPN, how would I do i
 
 A VPN has three core components and one extra component that wraps everything together:
 
-1\. **A Virtual Network Adapter (the** tunnel**)**
+1\. **A Virtual Network Adapter (the tunnel)**
 
 2\. **Transport**
 
