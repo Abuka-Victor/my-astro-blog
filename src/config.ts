@@ -3,12 +3,26 @@ import type { Site, SocialObjects } from "./types";
 export const SITE: Site = {
   website: "https://www.victorabuka.com", // replace this with your deployed domain
   author: "Victor Abuka",
-  desc: "Electrical and Electronics Engineer | Software Engineer | Open Source Contributor | Writing Sometimes",
+  desc: "Victor Abuka builds from antenna to API: radios, firmware, networks and production apps. Field notes and deep dives.",
   title: "Victor Abuka",
-  ogImage: "iamge-og.jpg",
+  ogImage: "image-og.jpg",
   lightAndDarkMode: true,
   postPerPage: 3,
   scheduledPostMargin: 15 * 60 * 1000, // 15 minutes
+};
+
+// Also used in the Contact section of src/pages/about.md.
+export const CONTACT_EMAIL = "victor@victorabuka.com";
+
+// Shows "Open to remote platform/embedded roles" on the About page.
+export const OPEN_TO_WORK = false;
+
+export const NEWSLETTER = {
+  // Kit form ID. The form posts straight to Kit, and Kit's form settings
+  // redirect new subscribers to https://www.victorabuka.com/thanks
+  // If this is emptied, the form renders with a disabled button.
+  kitFormId: "10173338",
+  copy: "One deep engineering idea every Tuesday, plus what I'm building.",
 };
 
 export const LOCALE = {
@@ -38,7 +52,7 @@ export const SOCIALS: SocialObjects = [
   },
   {
     name: "Mail",
-    href: "mailto:abukavictoro@gmail.com",
+    href: "mailto:victor@victorabuka.com",
     linkTitle: `Send an email to ${SITE.title}`,
     active: false,
   },

@@ -1,0 +1,139 @@
+---
+import { NEWSLETTER } from "@config";
+
+export interface Props {
+  /** "full" shows the name field and copy; "compact" is the footer version. */
+  variant?: "full" | "compact";
+  /** Used to keep input ids unique when two forms share a page. */
+  id?: string;
+  heading?: string;
+}
+
+const { variant = "full", id = "newsletter", heading } = Astro.props;
+
+const formId = NEWSLETTER.kitFormId.trim();
+const configured = formId.length > 0;
+const action = configured
+  ? `https://app.kit.com/forms/${formId}/subscriptions`
+  : undefined;
+---
+
+<div class={`newsletter newsletter-${variant}`}>
+  {heading && <h2 class="newsletter-heading">{heading}</h2>}
+  <p class="newsletter-copy" id={`${id}-copy`}>{NEWSLETTER.copy}</p>
+  <form
+    action={action}
+    method="post"
+    data-newsletter
+    data-astro-reload
+    aria-describedby={`${id}-copy`}
+  >
+    <div class="newsletter-fields">
+      {
+        variant === "full" && (
+          <div class="newsletter-field newsletter-name">
+            <label for={`${id}-first-name`} class="sr-only">
+              First name (optional)
+            </label>
+            <input
+              id={`${id}-first-name`}
+              type="text"
+              name="fields[first_name]"
+              autocomplete="given-name"
+              placeholder="First name (optional)"
+            />
+          </div>
+        )
+      }
+      <div class="newsletter-field newsletter-email">
+        <label for={`${id}-email`} class="sr-only">Email address</label>
+        <input
+          id={`${id}-email`}
+          type="email"
+          name="email_address"
+          autocomplete="email"
+          placeholder="you@example.com"
+          required
+        />
+      </div>
+      <div class="newsletter-hp" aria-hidden="true">
+        <label for={`${id}-website`}>Leave this empty</label>
+        <input
+          id={`${id}-website`}
+          type="text"
+          name="website"
+          tabindex="-1"
+          autocomplete="off"
+        />
+      </div>
+      <button type="submit" class="newsletter-submit" disabled={!configured}>
+        Subscribe
+      </button>
+    </div>
+    {
+      !configured && (
+        <p class="newsletter-note">Signup isn't switched on yet.</p>
+      )
+    }
+  </form>
+</div>
+
+<style>
+  .newsletter-full {
+    @apply my-6 rounded border border-skin-line p-4;
+  }
+  .newsletter-compact {
+    @apply w-full max-w-md pb-2 pt-6 sm:pt-4;
+  }
+  .newsletter-heading {
+    @apply mb-1 text-lg font-semibold;
+  }
+  .newsletter-copy {
+    @apply mb-3 text-sm;
+  }
+  .newsletter-fields {
+    @apply flex flex-col gap-2 sm:flex-row;
+  }
+  .newsletter-field {
+    @apply sm:flex-1;
+  }
+  .newsletter-full .newsletter-email {
+    @apply sm:flex-[1.4];
+  }
+  .newsletter-field input {
+    @apply w-full rounded border border-skin-fill border-opacity-40 bg-skin-fill px-3 py-2 text-sm text-skin-base placeholder:text-skin-base placeholder:opacity-70 focus:border-skin-accent focus:outline-none;
+  }
+  .newsletter-submit {
+    @apply whitespace-nowrap rounded bg-skin-inverted px-4 py-2 text-sm font-semibold text-skin-inverted hover:bg-skin-accent focus-visible:outline-dashed focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-skin-fill disabled:cursor-not-allowed disabled:opacity-60 disabled:hover:bg-skin-inverted;
+  }
+  .newsletter-note {
+    @apply mt-2 text-xs opacity-80;
+  }
+  /* Honeypot: off-screen for people, still in the DOM for bots. */
+  .newsletter-hp {
+    position: absolute;
+    left: -9999px;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+  }
+</style>
+
+<script>
+  // One delegated listener survives view-transition page swaps.
+  // Kit ignores unknown fields, so the honeypot check has to happen here.
+  // Without JS the form still posts straight to Kit.
+  document.addEventListener("submit", event => {
+    const form = event.target;
+    if (
+      !(form instanceof HTMLFormElement) ||
+      !form.hasAttribute("data-newsletter")
+    )
+      return;
+    const trap = form.querySelector<HTMLInputElement>('input[name="website"]');
+    if (trap && trap.value.trim() !== "") {
+      event.preventDefault();
+      window.location.assign("/thanks/");
+    }
+  });
+</script>

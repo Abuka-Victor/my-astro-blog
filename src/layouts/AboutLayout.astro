@@ -1,5 +1,5 @@
 ---
-import { SITE } from "@config";
+import { CONTACT_EMAIL, OPEN_TO_WORK, SITE } from "@config";
 import Breadcrumbs from "@components/Breadcrumbs.astro";
 import Footer from "@components/Footer.astro";
 import Header from "@components/Header.astro";
@@ -21,6 +21,19 @@ const { frontmatter } = Astro.props;
   <main id="main-content">
     <section id="about" class="prose mb-28 max-w-3xl prose-img:border-0">
       <h1 class="text-2xl tracking-wider sm:text-3xl">{frontmatter.title}</h1>
+      {
+        OPEN_TO_WORK && (
+          <p class="not-prose mb-6 inline-block rounded border border-skin-accent px-3 py-1 text-sm">
+            Open to remote platform/embedded roles.{" "}
+            <a
+              href={`mailto:${CONTACT_EMAIL}`}
+              class="underline decoration-dashed underline-offset-4 hover:text-skin-accent"
+            >
+              Email me
+            </a>
+          </p>
+        )
+      }
       <slot />
     </section>
   </main>

@@ -9,12 +9,21 @@ import Card from "@components/Card";
 import Socials from "@components/Socials.astro";
 import getSortedPosts from "@utils/getSortedPosts";
 import { SOCIALS } from "@config";
+import NewsletterSignup from "@components/NewsletterSignup.astro";
+import ProofStrip from "@components/ProofStrip.astro";
+import ProjectCard from "@components/ProjectCard.astro";
+import Testimonials from "@components/Testimonials.astro";
+import getSortedProjects from "@utils/getSortedProjects";
 
 const posts = await getCollection("blog");
 
 const sortedPosts = getSortedPosts(posts);
 const featuredPosts = sortedPosts.filter(({ data }) => data.featured);
 const recentPosts = sortedPosts.filter(({ data }) => !data.featured);
+
+const selectedBuilds = getSortedProjects(
+  await getCollection("projects", ({ data }) => data.featured)
+).slice(0, 4);
 
 const socialCount = SOCIALS.filter(social => social.active).length;
 ---
@@ -23,41 +32,16 @@ const socialCount = SOCIALS.filter(social => social.active).length;
   <Header />
   <main id="main-content">
     <section id="hero">
-      <h1>Hello</h1>
-      <a
-        target="_blank"
-        href="/rss.xml"
-        class="rss-link"
-        aria-label="rss feed"
-        title="RSS Feed"
-      >
-        <svg xmlns="http://www.w3.org/2000/svg" class="rss-icon"
-          ><path
-            d="M19 20.001C19 11.729 12.271 5 4 5v2c7.168 0 13 5.832 13 13.001h2z"
-          ></path><path
-            d="M12 20.001h2C14 14.486 9.514 10 4 10v2c4.411 0 8 3.589 8 8.001z"
-          ></path><circle cx="6" cy="18" r="2"></circle>
-        </svg>
-        <span class="sr-only">RSS Feed</span>
-      </a>
+      <h1>I build from antenna to API.</h1>
 
-      <p>
-        Like everyone else, I have been doing stuff since I was born. Welcome to
-        my internet bubble where I document my findings and my thoughts,
-        including thing's I've struggled with and things that have struggled
-        with me.
-      </p>
+      <p class="subline">Radios, firmware, networks and production apps.</p>
 
-      <p>
-        You can find out more <LinkButton
-          className="underline decoration-dashed underline-offset-4 hover:text-skin-accent"
-          href="/about"
-        >
-          about me
-        </LinkButton>
-        , read what I’m working on now, or explore the articles of this site, which
-        you might find interesting.
-      </p>
+      <div class="hero-links">
+        <a href="/work/" class="hero-link primary">See what I've built</a>
+        <a href="/posts/" class="hero-link">Read the articles</a>
+      </div>
+
+      <NewsletterSignup id="hero-newsletter" />
 
       {
         // only display if at least one social link is enabled
@@ -65,10 +49,48 @@ const socialCount = SOCIALS.filter(social => social.active).length;
           <div class="social-wrapper">
             <div class="social-links">Social Links:</div>
             <Socials />
+            <a
+              target="_blank"
+              href="/rss.xml"
+              class="rss-link"
+              aria-label="rss feed"
+              title="RSS Feed"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" class="rss-icon">
+                <>
+                  <path d="M19 20.001C19 11.729 12.271 5 4 5v2c7.168 0 13 5.832 13 13.001h2z" />
+                  <path d="M12 20.001h2C14 14.486 9.514 10 4 10v2c4.411 0 8 3.589 8 8.001z" />
+                  <circle cx="6" cy="18" r="2" />
+                </>
+              </svg>
+              <span class="sr-only">RSS Feed</span>
+            </a>
           </div>
         )
       }
     </section>
+
+    <ProofStrip />
+
+    <Hr />
+
+    {
+      selectedBuilds.length > 0 && (
+        <section id="selected-builds">
+          <div class="section-heading">
+            <h2>Selected builds</h2>
+            <a href="/work/">All work →</a>
+          </div>
+          <ul class="project-grid">
+            {selectedBuilds.map(project => (
+              <ProjectCard project={project} headingLevel="h3" />
+            ))}
+          </ul>
+        </section>
+      )
+    }
+
+    <Testimonials />
 
     <Hr />
 
@@ -124,7 +146,7 @@ const socialCount = SOCIALS.filter(social => social.active).length;
     </div>
   </main>
 
-  <Footer />
+  <Footer showSignup={false} />
 </Layout>
 
 <style>
@@ -136,19 +158,48 @@ const socialCount = SOCIALS.filter(social => social.active).length;
     @apply my-4 inline-block text-3xl font-bold sm:my-8 sm:text-5xl;
   }
   #hero .rss-link {
-    @apply mb-6;
+    @apply p-2 hover:rotate-6 sm:p-1;
   }
   #hero .rss-icon {
-    @apply mb-2 h-6 w-6 scale-110 fill-skin-accent sm:mb-3 sm:scale-125;
+    @apply h-6 w-6 fill-skin-accent;
   }
   #hero p {
     @apply my-2;
   }
+  #hero .subline {
+    @apply text-lg sm:text-xl;
+  }
+  .hero-links {
+    @apply mt-5 flex flex-wrap gap-3;
+  }
+  .hero-link {
+    @apply rounded border border-skin-fill border-opacity-40 px-4 py-2 font-medium hover:border-skin-accent hover:text-skin-accent;
+  }
+  .hero-link.primary {
+    @apply border-skin-fill border-opacity-100 bg-skin-inverted text-skin-inverted hover:bg-skin-accent hover:text-skin-inverted;
+  }
+
+  /* ===== Selected builds ===== */
+  #selected-builds {
+    @apply pb-6 pt-12;
+  }
+  .section-heading {
+    @apply mb-6 flex items-baseline justify-between gap-4;
+  }
+  .section-heading h2 {
+    @apply text-2xl font-semibold tracking-wide;
+  }
+  .section-heading a {
+    @apply whitespace-nowrap text-sm underline decoration-dashed underline-offset-4 hover:text-skin-accent;
+  }
+  .project-grid {
+    @apply grid gap-6 sm:grid-cols-2;
+  }
   .social-wrapper {
-    @apply mt-4 flex flex-col sm:flex-row sm:items-center;
+    @apply mt-4 flex flex-wrap items-center;
   }
   .social-links {
-    @apply mb-1 mr-2 whitespace-nowrap sm:mb-0;
+    @apply mr-2 w-full whitespace-nowrap sm:w-auto;
   }
 
   /* ===== Featured & Recent Posts Sections ===== */

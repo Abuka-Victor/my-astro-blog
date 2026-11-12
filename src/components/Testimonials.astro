@@ -1,0 +1,53 @@
+---
+import testimonials from "@data/testimonials";
+---
+
+{
+  testimonials.length > 0 && (
+    <section id="testimonials">
+      <h2>What people say</h2>
+      <ul>
+        {testimonials.map(t => (
+          <li>
+            <figure>
+              <blockquote>
+                <p>{t.quote}</p>
+              </blockquote>
+              <figcaption>
+                {t.link ? (
+                  <a href={t.link} target="_blank" rel="noopener">
+                    {t.name}
+                  </a>
+                ) : (
+                  t.name
+                )}
+                {t.role && <span>, {t.role}</span>}
+              </figcaption>
+            </figure>
+          </li>
+        ))}
+      </ul>
+    </section>
+  )
+}
+
+<style>
+  #testimonials {
+    @apply pb-6 pt-12;
+  }
+  h2 {
+    @apply mb-6 text-2xl font-semibold tracking-wide;
+  }
+  ul {
+    @apply grid gap-6 sm:grid-cols-2;
+  }
+  blockquote {
+    @apply border-l-2 border-skin-accent pl-4;
+  }
+  figcaption {
+    @apply mt-2 pl-4 text-sm opacity-90;
+  }
+  figcaption a {
+    @apply underline decoration-dashed underline-offset-4 hover:text-skin-accent;
+  }
+</style>
