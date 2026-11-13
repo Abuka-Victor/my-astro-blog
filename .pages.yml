@@ -78,6 +78,7 @@ content:
           - { name: value, label: Value, type: string }
       - { name: stack, label: Stack, type: string, list: true }
       - { name: related, label: Related post slugs, type: string, list: true }
+      - { name: partOf, label: Part of (parent project slug), type: string }
       - { name: body, label: Case study, type: rich-text }
   - name: proof
     label: Proof strip
