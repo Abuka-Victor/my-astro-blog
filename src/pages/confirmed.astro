@@ -1,0 +1,55 @@
+---
+import { getCollection } from "astro:content";
+import { NEWSLETTER, SITE } from "@config";
+import Layout from "@layouts/Layout.astro";
+import Header from "@components/Header.astro";
+import Footer from "@components/Footer.astro";
+import getSortedPosts from "@utils/getSortedPosts";
+
+// Kit sends subscribers here after they click "Confirm" in the email.
+// Set it in Kit: the form's settings, where it asks what happens after
+// a subscriber confirms -> redirect to https://www.victorabuka.com/confirmed/
+const latest = getSortedPosts(await getCollection("blog"))[0];
+---
+
+<Layout title={`You're confirmed | ${SITE.title}`} noindex>
+  <Header />
+  <main id="main-content">
+    <h1>You're in.</h1>
+    <p>
+      Your email is confirmed, so you're on the list. {NEWSLETTER.copy}
+    </p>
+    <p>
+      To keep me out of Spam, add <strong>victor@victorabuka.com</strong> to your
+      contacts.
+    </p>
+    {
+      latest && (
+        <p>
+          Start with the latest:{" "}
+          <a href={`/posts/${latest.slug}/`}>{latest.data.title}</a>
+        </p>
+      )
+    }
+    <p>
+      Or <a href="/posts/">read the other articles</a> and
+      <a href="/work/">see what I've built</a>.
+    </p>
+  </main>
+  <Footer showSignup={false} />
+</Layout>
+
+<style>
+  #main-content {
+    @apply mx-auto w-full max-w-3xl px-4 pb-16 pt-12;
+  }
+  h1 {
+    @apply mb-4 text-2xl font-semibold sm:text-3xl;
+  }
+  p {
+    @apply my-3;
+  }
+  a {
+    @apply underline decoration-dashed underline-offset-4 hover:text-skin-accent;
+  }
+</style>
