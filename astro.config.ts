@@ -25,7 +25,9 @@ export default defineConfig({
     react(),
     sitemap({
       filter: page =>
-        !page.includes("/thanks") && !page.includes("/my-first-blog-post"),
+        !page.includes("/thanks") &&
+        !page.includes("/confirmed") &&
+        !page.includes("/my-first-blog-post"),
     }),
   ],
   markdown: {
