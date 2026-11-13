@@ -13,15 +13,25 @@ links:
     url: https://github.com/Abuka-Victor/akpa-cli
   - label: Server repo
     url: https://github.com/Abuka-Victor/akpa-server
-# TODO(victor): cover (card image), e.g. cover: /assets/work/akpa-cover.jpg + coverAlt
-# TODO(victor): receipt photo/screenshot, e.g. receipt: { src: /assets/work/akpa-receipt.jpg, alt: "..." }
-# TODO(victor): numbers, e.g. numbers: [{ label: "...", value: "..." }]
+cover: /assets/work/akpa-cover.webp
+coverAlt: The Akpa homepage, with its backpack logo, tagline, live-links counter and one-line install command
+receipt:
+  src: /assets/work/akpa-receipt.webp
+  alt: 'The Akpa homepage at akpa.victorabuka.com: a backpack logo, the tagline "Share a folder on your machine over a single link. No account, no config, no port forwarding.", a live-links counter and a curl install command for macOS and Linux'
+  caption: akpa.victorabuka.com. The counter shows links live right now; the most I've seen at once is 72.
+numbers:
+  - label: Most live links at once
+    value: "72"
 stack: [Go]
 ---
 
-<!-- TODO(victor): "The problem" section. Why did you build Akpa? Add it as "## The problem". -->
+## The problem
 
-<!-- TODO(victor): "Constraints" section. Add it as "## Constraints". -->
+Akpa started as a side quest. I'd been exploring a transport protocol at work for moving packets, and I kept wondering: if it can move packets, why not files?
+
+It also scratched a personal itch. I wanted to send files to colleagues without uploading them anywhere first. No drive links, no attachments, no roundabouts. Just point at a folder and hand someone a link.
+
+<!-- TODO(victor): optional "## Constraints" section, if anything shaped the design. -->
 
 ## How it works
 
@@ -36,4 +46,12 @@ Links can be password-protected, and the server never learns the password. When 
 
 That keeps the server stateless: it holds no passwords and no sessions. Failed attempts get throttled progressively, so guessing gets slower the more you guess.
 
-<!-- TODO(victor): "## The hard part / what broke". What fought back while building this? -->
+## The hard part
+
+Getting files across was the fun bit. The hard part was turning "it works on my machine" into something other people could actually use.
+
+- **Installing it.** A Go binary on my laptop isn't a product. I had to work out how to make Akpa installable for people who've never heard of it. It ended up as a one-line install script for macOS and Linux, with plain binaries for anyone who'd rather not pipe curl into bash.
+- **Docs.** If nobody can figure out how to use it, it doesn't exist. Writing them was its own project.
+- **One process, two servers.** The server has to answer browsers over HTTP and hold tunnels open to CLIs over TCP. Running a web server and a TCP server in the same process was something I had to figure out, not something I already knew.
+
+The best moment so far: seeing 72 live links active on the site at the same time. That one made me proud.

@@ -7,15 +7,20 @@ status: in-progress
 featured: true
 order: 2
 links: []
-# TODO(victor): links (repo, report, demo video), cover + coverAlt, receipt photo
-# (the assembled array, the report's Plate 4.1), e.g. receipt: { src: /assets/work/beamforming-receipt.jpg, alt: "..." }
+# TODO(victor): links (repo, report, demo video)
+cover: /assets/work/beamforming-array.webp
+coverAlt: Four green printed dipole boards on white 3D-printed clips along a wooden boom
+receipt:
+  src: /assets/work/beamforming-array.webp
+  alt: Four green printed dipole boards on white 3D-printed clips, spaced along a wooden boom on a wooden stand
+  caption: The assembled array. Four printed dipoles, 164 mm apart.
 # Numbers below are the results so far from the draft report. Update when Chapter 4 is done.
 numbers:
   - label: Bench LoRa packet delivery
     value: 97.3 %
   - label: Best beam picked (simulated, INT8)
     value: 84.7 %
-  - label: Signal given up per pick (simulated)
+  - label: Signal given up per pick (simulated, float)
     value: 0.47 dB
   - label: Model size
     value: 1,532 params
@@ -52,6 +57,8 @@ I wanted a ground station that extends the link with cheap parts, one receiver, 
 
 The drone is a LiteWing, an ESP32-S3 micro-drone. I added an RFM95W LoRa module on its SPI bus, and it sends a 13-byte telemetry packet at 915 MHz about five times a second. Wi-Fi still carries control. LoRa carries the telemetry, which is the link I'm improving. Every LoRa packet arrives with an RSSI and SNR reading, which turn out to be exactly the inputs the beam selector needs.
 
+![The LiteWing micro-drone from the top, showing the ESP32-S3 module, and from underneath, with the battery strapped on](/assets/work/beamforming-drone.webp)
+
 On the ground, four [printed dipoles](/work/pcb-printed-dipoles/) sit 164 mm apart (half a wavelength) on a wooden boom. Each one feeds a two-bit switched-line phase shifter: four HMC349 RF switches choosing between lengths of RG316 coax, giving 0°, 90°, 180° or 270°. A four-way combiner adds the shifted signals and passes them to a single LoRa receiver.
 
 From the 64 phase combinations the array can actually make, I derived a codebook of 12 beams covering ±90°.
@@ -60,8 +67,7 @@ The ESP32-S3 on the ground station sounds a handful of those beams, builds a 24-
 
 To evaluate it, I compare a fixed-beam baseline firmware against the ML firmware, swapping between them with an over-the-air update.
 
-<!-- TODO(victor): diagram. The report's Figure 3.1 block diagram would work, e.g.
-![Block diagram of the drone and ground station](/assets/work/beamforming-diagram.png) -->
+![Block diagram. On the drone, an RFM95W LoRa radio on the ESP32-S3 sends 915 MHz telemetry. On the ground, four printed dipoles each feed a 2-bit phase shifter, a 4-way combiner sums them into one RFM95W receiver, and an ESP32-S3 turns RSSI and SNR into a beam choice through the INT8 MLP and drives the shifters over 8 GPIO lines.](/assets/work/beamforming-diagram.webp)
 
 ## The hard part (so far)
 
@@ -79,7 +85,7 @@ Everything tested so far has met its acceptance criterion:
 
 - The four antenna elements are matched at 915 MHz without trimming ([details](/work/pcb-printed-dipoles/)).
 - The bench LoRa link delivered 685 of 704 packets.
-- In simulation, the INT8 model picks the best beam 84.7 % of the time and gives up 0.47 dB on average, against 1.66 dB for just keeping the strongest beam it sounded.
+- In simulation, the model gives up only 0.47 dB on average, against 1.66 dB for just keeping the strongest beam it sounded. Quantised to INT8 it still picks the best beam 84.7 % of the time, down from 86.1 % at full precision.
 
 The simulation uses an ideal array with 2 dB of noise and no coupling between elements, so the model will be fine-tuned on data from the real array.
 

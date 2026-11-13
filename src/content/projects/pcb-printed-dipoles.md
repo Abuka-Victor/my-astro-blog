@@ -8,8 +8,13 @@ featured: true
 order: 3
 partOf: ml-beamforming-ground-station
 links: []
-# TODO(victor): links (design files repo?), cover + coverAlt, receipt photo of the fabbed boards
-# (the report's Plate 3.2 slot), e.g. receipt: { src: /assets/work/dipole-receipt.jpg, alt: "..." }
+# TODO(victor): links (design files repo?)
+cover: /assets/work/dipole-boards.webp
+coverAlt: Front and back of a green printed dipole board with an SMA connector on its bottom edge
+receipt:
+  src: /assets/work/dipole-boards.webp
+  alt: Front and back of a fabricated printed dipole. The front shows the feed trace and one arm with trim marks; the back shows the other arm, the balun strip and the ground plane, with the SMA edge connector soldered on.
+  caption: One of the five boards, front and back, with its SMA connector fitted.
 numbers:
   - label: Return loss at 915 MHz
     value: −16.8 to −19.4 dB
@@ -43,12 +48,13 @@ The balun section works out to about 63 Ω, between the 50 Ω feed and a printed
 
 I drew the copper directly in KiCad's PCB editor (an antenna has no netlist, so there's no schematic), got it DRC-clean, and ordered five boards: four for the array and one spare.
 
-<!-- TODO(victor): layout render, e.g. the report's Figure 3.4 exported to
-![Front and back copper of the printed dipole](/assets/work/dipole-layout.png) -->
+![Layer artwork. Front copper: a 2.8 mm feed trace running up to a 65 mm arm with trim marks. Back copper: the other arm, a 43.4 mm balun strip and the ground plane.](/assets/work/dipole-layout.webp)
 
 ## The hard part
 
 Every version fought me on the balun, the bit that stops current running down the outside of the feed cable. In an array that matters more than usual: stray radiation from the cable would change every time the cables moved, and I'd end up measuring my cable routing instead of the beamforming.
+
+![The three iterations: a brass rod with a sleeve balun (abandoned), a brass rod with a Pawsey stub (workable but fragile), and the double-sided printed dipole (adopted)](/assets/work/dipole-iterations.webp)
 
 1. **Brass rod with a sleeve balun.** The plan was to slide RG405 semi-rigid over the RG316 feed. RG405 is about 2.2 mm across. RG316 is 2.5 mm. That plan died on paper.
 2. **Brass rod with a Pawsey stub.** This one worked electrically. But because the elements had to be detachable, the stub shorted to the SMA connector's body 82 mm below the feed, so the connector's position became an electrical dimension I had to reproduce to the millimetre, four times, by hand.
