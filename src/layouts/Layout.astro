@@ -14,6 +14,7 @@ export interface Props {
   pubDatetime?: Date;
   modDatetime?: Date | null;
   scrollSmooth?: boolean;
+  noindex?: boolean;
 }
 
 const {
@@ -25,6 +26,7 @@ const {
   pubDatetime,
   modDatetime,
   scrollSmooth = false,
+  noindex = false,
 } = Astro.props;
 
 const socialImageURL = new URL(
@@ -39,6 +41,8 @@ const socialImageURL = new URL(
   class={`${scrollSmooth && "scroll-smooth"}`}
 >
   <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-9M07HEG93M"
     ></script>
@@ -66,8 +70,6 @@ const socialImageURL = new URL(
         y.parentNode.insertBefore(t, y);
       })(window, document, "clarity", "script", "szzy6gzpx2");
     </script>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
@@ -80,9 +82,12 @@ const socialImageURL = new URL(
     <meta name="title" content={title} />
     <meta name="description" content={description} />
     <meta name="author" content={author} />
+    {noindex && <meta name="robots" content="noindex" />}
     <link rel="sitemap" href="/sitemap-index.xml" />
 
     <!-- Open Graph / Facebook -->
+    <meta property="og:type" content={pubDatetime ? "article" : "website"} />
+    <meta property="og:site_name" content={SITE.title} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonicalURL} />

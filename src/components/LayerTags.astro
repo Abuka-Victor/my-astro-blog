@@ -1,0 +1,27 @@
+---
+export interface Props {
+  items: readonly string[];
+  label?: string;
+}
+
+const { items, label = "Layers" } = Astro.props;
+---
+
+{
+  items.length > 0 && (
+    <ul class="layer-tags" aria-label={label}>
+      {items.map(item => (
+        <li>{item}</li>
+      ))}
+    </ul>
+  )
+}
+
+<style>
+  .layer-tags {
+    @apply flex flex-wrap gap-1.5;
+  }
+  .layer-tags li {
+    @apply rounded-sm border border-skin-line px-1.5 py-0.5 text-xs uppercase leading-5 tracking-wide;
+  }
+</style>

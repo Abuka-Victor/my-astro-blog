@@ -6,21 +6,31 @@ import remarkCollapse from "remark-collapse";
 import sitemap from "@astrojs/sitemap";
 import { SITE } from "./src/config";
 import { remarkReadingTime } from "./src/utils/remark-reading-time.mjs";
+import { remarkStripHtmlComments } from "./src/utils/remark-strip-html-comments.mjs";
 
 // https://astro.build/config
 export default defineConfig({
   site: SITE.website,
   base: "/",
   output: "static",
+  // GitHub Pages has no server-side redirects, so Astro writes a page
+  // at the old URL that redirects instantly (meta refresh + canonical).
+  redirects: {
+    "/posts/my-first-blog-post": "/posts/",
+  },
   integrations: [
     tailwind({
       applyBaseStyles: false,
     }),
     react(),
-    sitemap(),
+    sitemap({
+      filter: page =>
+        !page.includes("/thanks") && !page.includes("/my-first-blog-post"),
+    }),
   ],
   markdown: {
     remarkPlugins: [
+      remarkStripHtmlComments,
       remarkToc,
       remarkReadingTime,
       [

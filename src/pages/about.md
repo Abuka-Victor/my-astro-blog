@@ -2,29 +2,49 @@
 layout: ../layouts/AboutLayout.astro
 title: About
 ---
-My name is Victor Abuka. If you are here, chances are that you already knew that. I like to make memes and make music but if I'm being serious I am an Engineer.
 
-At the time of this writing I am an Electrical/Electronics Engineering major at the University of Ibadan. I am also a Fullstack Software Engineer.
+I'm Victor Abuka, and I build from antenna to API. That covers RF and PCB design, embedded firmware and TinyML, carrier networking, Linux and Android internals, Go systems tools, and the production web apps on top. I like owning every layer, mostly because the bug is usually one layer below the one I'm staring at.
 
-I started coding in 2014 but I was off and on till I got my first job as a backend dev in 2021. Years of playing around code inspired my decision for EEE when it was time to get into college. I kind of knew software so I had to know the hardware too. I do not regret that decision. I never have.
+## Now
 
-My professional development skills range from front and back-end development to mobile development and operations.
+Embedded Systems Engineer & Research Associate at FBIS Technologies.
 
-Currently I’m a software engineer at Xpathedge, where I’m leading a team building the future of education management.
+Alongside that, I've sat my final exams in Electrical & Electronics Engineering and I'm finishing my final-year project, an [ML-beamforming ground station](/work/ml-beamforming-ground-station/). Not a graduate yet, but close.
 
-I write simple articles about technical concepts and occasionally do sanity checklists and deep dives.
+## Before
 
-I have some experience teaching, professionally, Physics, Mathematics and more recently Software Engineering. I also sometimes speak at conferences and events.
+- **Xpathedge**: Software Engineer at a US company, fully remote. Two years of production web apps (Sep 2024 – Aug 2026).
+- **Interpocket**: Mobile engineer at a fintech (Oct 2023 – May 2024).
+- **HNG**: Backend team lead, leading ~30 developers (2021).
+- **Newson.io**: Backend intern (2021).
 
-I love writing about the things I am learning and usually I am soaked in the beauty of the world but right now I have my eyes on these majorly:
+## Community & teaching
 
-*   Low level and Graphics Programming
-    
-*   AI/ML
-    
-*   Solopreneurship
-    
-*   Firmware Development
-    
+- President, GDG on Campus University of Ibadan.
+- Software Engineering Lead, IEEE at the University of Ibadan.
+- Taught Motoko, the Internet Computer's (ICP) language, at universities.
 
-I have a few cats that own me and when I am not working or schooling, I enjoy making or listening to music, playing games and chatting with friends about the stupidest things we can think about.
+## What I write about
+
+- RF & antennas
+- Embedded & firmware
+- PCB design
+- Networks & carrier infrastructure
+- Linux/Android internals
+- Go systems programming
+- Self-hosting & infra for Africa
+- Power & energy in Nigeria
+- The engineer's craft
+
+## Off the clock
+
+I like to make memes and make music. I have a few cats that own me, and when I'm not working I'm making or listening to music, playing games, and chatting with friends about the stupidest things we can think of.
+
+Essays and poems live on [Substack](https://abuka.substack.com/).
+
+## Contact
+
+- Email: [victor@victorabuka.com](mailto:victor@victorabuka.com)
+- X: [@abukaofficial](https://x.com/abukaofficial)
+- LinkedIn: [victor-abuka](https://www.linkedin.com/in/victor-abuka/)
+- GitHub: [abuka-victor](https://github.com/abuka-victor/)

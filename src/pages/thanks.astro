@@ -1,0 +1,47 @@
+---
+import { SITE } from "@config";
+import Layout from "@layouts/Layout.astro";
+import Header from "@components/Header.astro";
+import Footer from "@components/Footer.astro";
+import LinkButton from "@components/LinkButton.astro";
+---
+
+<Layout title={`Check your inbox | ${SITE.title}`} noindex>
+  <Header />
+  <main id="main-content">
+    <h1>Check your inbox.</h1>
+    <p>
+      The confirmation email is from <strong>victor@victorabuka.com</strong>. If
+      it's not there in 2 minutes, check Promotions or Spam.
+    </p>
+    <p>
+      While you wait:
+      <LinkButton
+        href="/posts/"
+        className="underline decoration-dashed underline-offset-4"
+      >
+        read the articles
+      </LinkButton>
+      or
+      <LinkButton
+        href="/work/"
+        className="underline decoration-dashed underline-offset-4"
+      >
+        see what I've built</LinkButton
+      >.
+    </p>
+  </main>
+  <Footer showSignup={false} />
+</Layout>
+
+<style>
+  #main-content {
+    @apply mx-auto w-full max-w-3xl px-4 pb-16 pt-12;
+  }
+  h1 {
+    @apply mb-4 text-2xl font-semibold sm:text-3xl;
+  }
+  p {
+    @apply my-3;
+  }
+</style>

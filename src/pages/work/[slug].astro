@@ -1,0 +1,243 @@
+---
+import { type CollectionEntry, getCollection } from "astro:content";
+import { SITE } from "@config";
+import Layout from "@layouts/Layout.astro";
+import Header from "@components/Header.astro";
+import Footer from "@components/Footer.astro";
+import Breadcrumbs from "@components/Breadcrumbs.astro";
+import LayerTags from "@components/LayerTags.astro";
+import { STATUS_LABEL } from "@utils/getSortedProjects";
+
+export interface Props {
+  project: CollectionEntry<"projects">;
+}
+
+export async function getStaticPaths() {
+  const projects = await getCollection("projects");
+  return projects.map(project => ({
+    params: { slug: project.slug },
+    props: { project },
+  }));
+}
+
+const { project } = Astro.props;
+const {
+  title,
+  summary,
+  layers,
+  status,
+  year,
+  receipt,
+  numbers,
+  stack,
+  links,
+  related,
+  partOf,
+} = project.data;
+
+const allProjects = await getCollection("projects");
+const parent = partOf ? allProjects.find(p => p.slug === partOf) : undefined;
+const parts = allProjects
+  .filter(p => p.data.partOf === project.slug)
+  .sort((a, b) => a.data.order - b.data.order);
+
+const { Content } = await project.render();
+// A body made only of TODO comments renders nothing, so skip the wrapper too.
+const hasBody = project.body.replace(/<!--[\s\S]*?-->/g, "").trim().length > 0;
+
+const posts = await getCollection("blog", ({ data }) => !data.draft);
+const relatedPosts = related
+  .map(slug => posts.find(post => post.slug === slug))
+  .filter((post): post is CollectionEntry<"blog"> => Boolean(post));
+
+const hasLinks = links.length > 0 || relatedPosts.length > 0;
+const isExternal = (url: string) => /^https?:\/\//.test(url);
+---
+
+<Layout title={`${title} | Work | ${SITE.title}`} description={summary}>
+  <Header activeNav="work" />
+  <Breadcrumbs />
+  <main id="main-content">
+    <header class="case-header">
+      <p class="meta">
+        <span class={`status-${status}`}>{STATUS_LABEL[status]}</span>
+        {year && <span>· {year}</span>}
+      </p>
+      <h1>{title}</h1>
+      <p class="summary">{summary}</p>
+      {
+        parent && (
+          <p class="part-of">
+            Part of <a href={`/work/${parent.slug}/`}>{parent.data.title}</a>
+          </p>
+        )
+      }
+      <LayerTags items={layers} />
+    </header>
+
+    {
+      receipt && (
+        <section class="case-section" aria-labelledby="receipt">
+          <h2 id="receipt">The receipt</h2>
+          <figure>
+            <img src={receipt.src} alt={receipt.alt} decoding="async" />
+            {receipt.caption && <figcaption>{receipt.caption}</figcaption>}
+          </figure>
+        </section>
+      )
+    }
+
+    {
+      hasBody && (
+        <article class="case-body prose">
+          <Content />
+        </article>
+      )
+    }
+
+    {
+      parts.length > 0 && (
+        <section class="case-section" aria-labelledby="parts">
+          <h2 id="parts">Parts of this build</h2>
+          <ul class="parts-list">
+            {parts.map(part => (
+              <li>
+                <a href={`/work/${part.slug}/`}>{part.data.title}</a>
+                <p>{part.data.summary}</p>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )
+    }
+
+    {
+      numbers.length > 0 && (
+        <section class="case-section" aria-labelledby="numbers">
+          <h2 id="numbers">Numbers</h2>
+          <dl class="numbers">
+            {numbers.map(n => (
+              <div>
+                <dt>{n.label}</dt>
+                <dd>{n.value}</dd>
+              </div>
+            ))}
+          </dl>
+        </section>
+      )
+    }
+
+    {
+      stack.length > 0 && (
+        <section class="case-section" aria-labelledby="stack">
+          <h2 id="stack">Stack</h2>
+          <LayerTags items={stack} label="Stack" />
+        </section>
+      )
+    }
+
+    {
+      hasLinks && (
+        <section class="case-section" aria-labelledby="links">
+          <h2 id="links">Links</h2>
+          <ul class="link-list">
+            {links.map(link => (
+              <li>
+                <a
+                  href={link.url}
+                  target={isExternal(link.url) ? "_blank" : undefined}
+                  rel={isExternal(link.url) ? "noopener" : undefined}
+                >
+                  {link.label}
+                  {isExternal(link.url) && " ↗"}
+                </a>
+              </li>
+            ))}
+            {relatedPosts.map(post => (
+              <li>
+                <span class="link-kind">Article:</span>{" "}
+                <a href={`/posts/${post.slug}/`}>{post.data.title}</a>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )
+    }
+
+    <p class="back">
+      <a href="/work/">← All work</a>
+    </p>
+  </main>
+  <Footer />
+</Layout>
+
+<style>
+  main {
+    @apply mx-auto w-full max-w-3xl px-4 pb-12;
+  }
+  .case-header {
+    @apply mb-8 mt-4 flex flex-col gap-3;
+  }
+  .meta {
+    @apply flex gap-1 text-xs uppercase tracking-wide opacity-80;
+  }
+  .status-live::before {
+    content: "● ";
+    @apply text-skin-accent;
+  }
+  h1 {
+    @apply text-2xl font-semibold sm:text-3xl;
+  }
+  .summary {
+    @apply text-lg;
+  }
+  /* base.css pads every <section>; main already has the gutter. */
+  .case-section {
+    @apply my-10 px-0;
+  }
+  .case-section h2 {
+    @apply mb-3 text-2xl font-bold;
+  }
+  .case-body {
+    @apply my-10 max-w-3xl;
+  }
+  figure img {
+    @apply w-full rounded border border-skin-line;
+  }
+  figcaption {
+    @apply mt-2 text-sm opacity-80;
+  }
+  .numbers {
+    @apply grid grid-cols-2 gap-4 sm:grid-cols-3;
+  }
+  .numbers dt {
+    @apply text-xs uppercase tracking-wide opacity-80;
+  }
+  .numbers dd {
+    @apply text-2xl font-semibold;
+  }
+  .link-list {
+    @apply flex flex-col gap-2;
+  }
+  .part-of {
+    @apply text-sm opacity-80;
+  }
+  .parts-list {
+    @apply flex flex-col gap-4;
+  }
+  .parts-list p {
+    @apply mt-1 text-sm;
+  }
+  .link-list a,
+  .part-of a,
+  .parts-list a,
+  .back a {
+    @apply underline decoration-dashed underline-offset-4 hover:text-skin-accent;
+  }
+  .link-kind {
+    @apply text-sm opacity-80;
+  }
+  .back {
+    @apply mt-12;
+  }
+</style>

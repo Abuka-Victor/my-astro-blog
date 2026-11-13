@@ -8,6 +8,7 @@ import type { CollectionEntry } from "astro:content";
 import { slugifyStr } from "@utils/slugify";
 import ShareLinks from "@components/ShareLinks.astro";
 import { SITE } from "@config";
+import NewsletterSignup from "@components/NewsletterSignup.astro";
 
 export interface Props {
   post: CollectionEntry<"blog">;
@@ -106,8 +107,10 @@ const layoutProps = {
 
       <ShareLinks />
     </div>
+
+    <NewsletterSignup heading="Liked this one?" id="post-newsletter" />
   </main>
-  <Footer />
+  <Footer showSignup={false} />
 </Layout>
 
 <style>

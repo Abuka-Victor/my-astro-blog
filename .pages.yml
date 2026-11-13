@@ -28,3 +28,78 @@ content:
       - { name: layout, type: string, hidden: true, default: "../layouts/AboutLayout.astro" }
       - { name: title, label: Title, type: string }
       - { name: body, label: Body, type: rich-text, options: { input: public/assets, output: /assets } }
+  - name: projects
+    label: Projects
+    type: collection
+    path: src/content/projects
+    view:
+      fields: [ title, status, featured, order ]
+    fields:
+      - { name: title, label: Title, type: string, required: true }
+      - { name: summary, label: Summary (one sentence), type: string, required: true }
+      - name: layers
+        label: Layers
+        type: select
+        required: true
+        options:
+          multiple: true
+          values: [ RF, PCB, Firmware, TinyML, Networking, Linux/Android, Go, Web, Infra ]
+      - { name: year, label: Year, type: number }
+      - name: status
+        label: Status
+        type: select
+        required: true
+        options:
+          values: [ live, shipped, in-progress ]
+      - { name: cover, label: Cover image, type: image }
+      - { name: coverAlt, label: Cover alt text, type: string }
+      - name: links
+        label: Links
+        type: object
+        list: true
+        fields:
+          - { name: label, label: Label, type: string }
+          - { name: url, label: URL, type: string }
+      - { name: featured, label: Featured on homepage, type: boolean }
+      - { name: order, label: Order (lower comes first), type: number }
+      - name: receipt
+        label: The receipt (hero photo)
+        type: object
+        fields:
+          - { name: src, label: Image, type: image }
+          - { name: alt, label: Alt text, type: string }
+          - { name: caption, label: Caption, type: string }
+      - name: numbers
+        label: Numbers
+        type: object
+        list: true
+        fields:
+          - { name: label, label: Label, type: string }
+          - { name: value, label: Value, type: string }
+      - { name: stack, label: Stack, type: string, list: true }
+      - { name: related, label: Related post slugs, type: string, list: true }
+      - { name: partOf, label: Part of (parent project slug), type: string }
+      - { name: body, label: Case study, type: rich-text }
+  - name: proof
+    label: Proof strip
+    type: file
+    path: src/data/proof.json
+    format: json
+    fields:
+      - { name: items, label: Items, type: string, list: true }
+  - name: testimonials
+    label: Testimonials
+    type: file
+    path: src/data/testimonials.json
+    format: json
+    fields:
+      - name: testimonials
+        label: Testimonials
+        type: object
+        list: true
+        fields:
+          - { name: name, label: Name, type: string, required: true }
+          - { name: role, label: Role, type: string }
+          - { name: link, label: Link, type: string }
+          - { name: quote, label: Quote, type: text, required: true }
+          - { name: permission, label: I have permission to publish this, type: boolean }

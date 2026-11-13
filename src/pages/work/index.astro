@@ -1,0 +1,34 @@
+---
+import { getCollection } from "astro:content";
+import { SITE } from "@config";
+import Layout from "@layouts/Layout.astro";
+import Main from "@layouts/Main.astro";
+import Header from "@components/Header.astro";
+import Footer from "@components/Footer.astro";
+import ProjectCard from "@components/ProjectCard.astro";
+import getSortedProjects from "@utils/getSortedProjects";
+
+const projects = getSortedProjects(await getCollection("projects"));
+---
+
+<Layout
+  title={`Work | ${SITE.title}`}
+  description="Things Victor Abuka has built, from antennas and firmware to Go tools and production apps."
+>
+  <Header activeNav="work" />
+  <Main
+    pageTitle="Work"
+    pageDesc="Things I've built, from the antenna up to the API."
+  >
+    <ul class="project-grid">
+      {projects.map(project => <ProjectCard project={project} />)}
+    </ul>
+  </Main>
+  <Footer />
+</Layout>
+
+<style>
+  .project-grid {
+    @apply mb-12 grid gap-6 sm:grid-cols-2;
+  }
+</style>

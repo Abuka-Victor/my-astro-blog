@@ -1,0 +1,29 @@
+---
+import proof from "@data/proof.json";
+
+const items = proof.items.filter(item => item.trim().length > 0);
+---
+
+{
+  items.length > 0 && (
+    <section id="proof" aria-label="Track record">
+      <ul>
+        {items.map(item => (
+          <li>{item}</li>
+        ))}
+      </ul>
+    </section>
+  )
+}
+
+<style>
+  #proof {
+    @apply pb-8;
+  }
+  ul {
+    @apply grid gap-x-6 gap-y-3 text-sm sm:grid-cols-2;
+  }
+  li {
+    @apply border-l-2 border-skin-accent pl-3 leading-snug;
+  }
+</style>
