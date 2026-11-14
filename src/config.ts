@@ -5,6 +5,8 @@ export const SITE: Site = {
   author: "Victor Abuka",
   desc: "Victor Abuka builds from antenna to API: radios, firmware, networks and production apps. Field notes and deep dives.",
   title: "Victor Abuka",
+  // The homepage's <title>, which search results and link previews show.
+  homeTitle: "Victor Abuka · From antenna to API",
   ogImage: "image-og.jpg",
   lightAndDarkMode: true,
   postPerPage: 3,
@@ -57,9 +59,15 @@ export const SOCIALS: SocialObjects = [
     active: false,
   },
   {
-    name: "Twitter",
+    name: "X",
     href: "https://x.com/abukaofficial",
-    linkTitle: `${SITE.title} on Twitter`,
+    linkTitle: `${SITE.title} on X`,
+    active: true,
+  },
+  {
+    name: "RSS",
+    href: "/rss.xml",
+    linkTitle: "RSS feed",
     active: true,
   },
   {

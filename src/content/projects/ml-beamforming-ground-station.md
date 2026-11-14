@@ -15,6 +15,9 @@ receipt:
   alt: Four green printed dipole boards on white 3D-printed clips, spaced along a wooden boom on a wooden stand
   caption: The assembled array. Four printed dipoles, 164 mm apart.
 # Numbers below are the results so far from the draft report. Update when Chapter 4 is done.
+# TODO(victor): after the defence on 26 Nov, add the without-ML vs with-ML
+# SNR/RSSI comparison: the headline numbers here, and the chart in
+# public/assets/work/ referenced under "Where it stands" below.
 numbers:
   - label: Bench LoRa packet delivery
     value: 97.3 %
@@ -88,5 +91,8 @@ Everything tested so far has met its acceptance criterion:
 - In simulation, the model gives up only 0.47 dB on average, against 1.66 dB for just keeping the strongest beam it sounded. Quantised to INT8 it still picks the best beam 84.7 % of the time, down from 86.1 % at full precision.
 
 The simulation uses an ideal array with 2 dB of noise and no coupling between elements, so the model will be fine-tuned on data from the real array.
+
+<!-- TODO(victor): fixed-beam vs ML comparison chart (SNR/RSSI) goes here, e.g.
+![Received signal with and without the ML beam picker](/assets/work/beamforming-snr-comparison.webp) -->
 
 Still to do: characterise the phase shifters, run the model on the ESP32-S3 and time it, verify the beams against a transmitter at surveyed bearings, then compare fixed-beam and ML firmware with the drone on a pole, and finally in flight.

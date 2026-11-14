@@ -6,9 +6,8 @@ import Footer from "@components/Footer.astro";
 import LinkButton from "@components/LinkButton.astro";
 import Hr from "@components/Hr.astro";
 import Card from "@components/Card";
-import Socials from "@components/Socials.astro";
 import getSortedPosts from "@utils/getSortedPosts";
-import { SOCIALS } from "@config";
+import { SITE } from "@config";
 import NewsletterSignup from "@components/NewsletterSignup.astro";
 import ProofStrip from "@components/ProofStrip.astro";
 import ProjectCard from "@components/ProjectCard.astro";
@@ -24,11 +23,9 @@ const recentPosts = sortedPosts.filter(({ data }) => !data.featured);
 const selectedBuilds = getSortedProjects(
   await getCollection("projects", ({ data }) => data.featured)
 ).slice(0, 4);
-
-const socialCount = SOCIALS.filter(social => social.active).length;
 ---
 
-<Layout>
+<Layout title={SITE.homeTitle}>
   <Header />
   <main id="main-content">
     <section id="hero">
@@ -42,32 +39,6 @@ const socialCount = SOCIALS.filter(social => social.active).length;
       </div>
 
       <NewsletterSignup id="hero-newsletter" />
-
-      {
-        // only display if at least one social link is enabled
-        socialCount > 0 && (
-          <div class="social-wrapper">
-            <div class="social-links">Social Links:</div>
-            <Socials />
-            <a
-              target="_blank"
-              href="/rss.xml"
-              class="rss-link"
-              aria-label="rss feed"
-              title="RSS Feed"
-            >
-              <svg xmlns="http://www.w3.org/2000/svg" class="rss-icon">
-                <>
-                  <path d="M19 20.001C19 11.729 12.271 5 4 5v2c7.168 0 13 5.832 13 13.001h2z" />
-                  <path d="M12 20.001h2C14 14.486 9.514 10 4 10v2c4.411 0 8 3.589 8 8.001z" />
-                  <circle cx="6" cy="18" r="2" />
-                </>
-              </svg>
-              <span class="sr-only">RSS Feed</span>
-            </a>
-          </div>
-        )
-      }
     </section>
 
     <ProofStrip />
@@ -157,12 +128,6 @@ const socialCount = SOCIALS.filter(social => social.active).length;
   #hero h1 {
     @apply my-4 inline-block text-3xl font-bold sm:my-8 sm:text-5xl;
   }
-  #hero .rss-link {
-    @apply p-2 hover:rotate-6 sm:p-1;
-  }
-  #hero .rss-icon {
-    @apply h-6 w-6 fill-skin-accent;
-  }
   #hero p {
     @apply my-2;
   }
@@ -194,12 +159,6 @@ const socialCount = SOCIALS.filter(social => social.active).length;
   }
   .project-grid {
     @apply grid gap-6 sm:grid-cols-2;
-  }
-  .social-wrapper {
-    @apply mt-4 flex flex-wrap items-center;
-  }
-  .social-links {
-    @apply mr-2 w-full whitespace-nowrap sm:w-auto;
   }
 
   /* ===== Featured & Recent Posts Sections ===== */
