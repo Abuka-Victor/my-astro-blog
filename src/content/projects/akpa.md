@@ -14,11 +14,11 @@ links:
   - label: Server repo
     url: https://github.com/Abuka-Victor/akpa-server
 cover: /assets/work/akpa-cover.webp
-coverAlt: The Akpa homepage, with its backpack logo, tagline, live-links counter and one-line install command
+coverAlt: 'The Akpa homepage on a phone, with its counter reading "72 links live right now"'
 receipt:
   src: /assets/work/akpa-receipt.webp
-  alt: 'The Akpa homepage at akpa.victorabuka.com: a backpack logo, the tagline "Share a folder on your machine over a single link. No account, no config, no port forwarding.", a live-links counter and a curl install command for macOS and Linux'
-  caption: akpa.victorabuka.com. The counter shows links live right now; the most I've seen at once is 72.
+  alt: 'The Akpa homepage on a phone: the tagline "Share a folder on your machine over a single link. No account, no config, no port forwarding." and a green counter reading "72 links live right now"'
+  caption: akpa.victorabuka.com on my phone, with the counter at 72 links live at once. That's the most I've seen.
 numbers:
   - label: Most live links at once
     value: "72"
